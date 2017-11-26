@@ -1,5 +1,6 @@
 # Baton
 警棒プラグイン
+[![](http://img.youtube.com/vi/KY3xyOpMHxc/0.jpg)](https://www.youtube.com/watch?v=KY3xyOpMHxc)
 
 ## 説明
 op、もしくはモデレーターがエンチャントされた棒でプレイヤーを殴ると、そのプレイヤーを指定した位置へテレポートさせます

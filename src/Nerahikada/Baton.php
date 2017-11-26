@@ -48,7 +48,7 @@ class Baton extends PluginBase implements Listener{
 
 	public function onCommand(CommandSender $sender, Command $command, string $label, array $args): bool{
 		if(!$sender->isOp()) return true;
-		// 可読性皆無！
+		// 可変関数(コールバック関数)
 		$callable = [$this, $this->commandHandler[strtolower(array_shift($args))] ?? $this->commandHandler["help"]];
 		call_user_func($callable, $sender, $args);
 		return true;
@@ -56,14 +56,8 @@ class Baton extends PluginBase implements Listener{
 
 
 	public function onHelpCommand(CommandSender $sender, array $args){
-		// TODO: メッセージ考えて
-		$sender->sendMessage("/baton コマンドヘルプ");
-		$sender->sendMessage("§2/baton help §fヘルプを表示します");
-		$sender->sendMessage("§2/baton add <name> §f<name>が警棒を使えるようにします");
-		$sender->sendMessage("§2/baton remove <name> §f<name>が警棒を使えなくなります");
-		$sender->sendMessage("§2/baton set §f現在立っている位置が牢屋に設定されます");
-		$sender->sendMessage("§2/baton reload §f設定ファイルを再読み込みします");
-		$sender->sendMessage("§2/baton give §f警棒を付与します");
+		$message = "/baton コマンドヘルプ\n§2/baton help §fヘルプを表示します\n§2/baton add <name> §f<name>が警棒を使えるようにします\n§2/baton remove <name> §f<name>が警棒を使えなくなります\n§2/baton set §f現在立っている位置が牢屋に設定されます\n§2/baton reload §f設定ファイルを再読み込みします\n§2/baton give §f警棒を付与します";
+		$sender->sendMessage($message);
 	}
 
 	public function onAddCommand(CommandSender $sender, array $args){
@@ -126,16 +120,17 @@ class Baton extends PluginBase implements Listener{
 		if($event->getCause() === EntityDamageEvent::CAUSE_ENTITY_ATTACK){
 			$damager = $event->getDamager();
 			$player = $event->getEntity();
-			if(
-				$damager instanceof Player && $player instanceof Player &&
-				$damager->getInventory()->getItemInHand()->getId() === Item::STICK &&
-				$damager->getInventory()->getItemInHand()->hasEnchantments() &&
-				($damager->isOp() || $this->moderators->exists($damager->getName(), true))
-			){
+			$item = $damager->getInventory()->getItemInHand();
+			$a = $damager instanceof Player;
+			$b = $player instanceof Player;
+			$c = $item->getId() === Item::STICK;
+			$d = $item->getCustomName() === "警棒";
+			$e = $damager->isOp() || $this->moderators->exists(strtolower($damager->getName()));
+			if($a && $b && $c && $d && $e){
 				$pos = $this->config->get("pos");
-				$event->setCancelled();
 				$pos = new Position($pos["x"], $pos["y"] + 0.1, $pos["z"], $this->getServer()->getLevelByName($pos["world"]));
 				$player->teleport($pos);
+				$event->setCancelled();
 			}
 		}
 	}

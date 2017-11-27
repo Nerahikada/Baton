@@ -1,7 +1,7 @@
 name: Baton
 main: Nerahikada\Baton
 api: 3.0.0-ALPHA9
-version: 1.0.1
+version: 1.0.2
 load: POSTWORLD
 author: ねらひかだ
 website: https://twitter.com/Nerahikada

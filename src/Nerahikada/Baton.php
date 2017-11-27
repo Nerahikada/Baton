@@ -49,15 +49,22 @@ class Baton extends PluginBase implements Listener{
 	public function onCommand(CommandSender $sender, Command $command, string $label, array $args): bool{
 		if(!$sender->isOp()) return true;
 		// 可変関数(コールバック関数)
-		$callable = [$this, $this->commandHandler[strtolower(array_shift($args))] ?? $this->commandHandler["help"]];
-		call_user_func($callable, $sender, $args);
+		$callable = $this->commandHandler[strtolower(array_shift($args))] ?? $this->commandHandler["help"];
+		call_user_func([$this, $callable], $sender, $args);
 		return true;
 	}
 
 
 	public function onHelpCommand(CommandSender $sender, array $args){
-		$message = "/baton コマンドヘルプ\n§2/baton help §fヘルプを表示します\n§2/baton add <name> §f<name>が警棒を使えるようにします\n§2/baton remove <name> §f<name>が警棒を使えなくなります\n§2/baton set §f現在立っている位置が牢屋に設定されます\n§2/baton reload §f設定ファイルを再読み込みします\n§2/baton give §f警棒を付与します";
-		$sender->sendMessage($message);
+		$sender->sendMessage(
+			"/baton コマンドヘルプ\n".
+			"§2/baton help §fヘルプを表示します\n".
+			"§2/baton add <name> §f<name>が警棒を使えるようにします\n".
+			"§2/baton remove <name> §f<name>が警棒を使えなくなります\n".
+			"§2/baton set §f現在立っている位置が牢屋に設定されます\n".
+			"§2/baton reload §f設定ファイルを再読み込みします\n".
+			"§2/baton give §f警棒を付与します"
+		);
 	}
 
 	public function onAddCommand(CommandSender $sender, array $args){
@@ -65,7 +72,7 @@ class Baton extends PluginBase implements Listener{
 		$this->moderators->set($name);
 		$this->moderators->save(true);
 
-		$sender->sendMessage($name."が警棒を使えるようになりました");
+		$sender->sendMessage($name . "が警棒を使えるようになりました");
 	}
 
 	public function onRemoveCommand(CommandSender $sender, array $args){
@@ -73,7 +80,7 @@ class Baton extends PluginBase implements Listener{
 		$this->moderators->remove($name);
 		$this->moderators->save();
 
-		$sender->sendMessage($name."の警棒使用権限を剥奪しました");
+		$sender->sendMessage($name . "の警棒使用権限を剥奪しました");
 	}
 
 	public function onSetCommand(CommandSender $sender, array $args){
@@ -121,12 +128,11 @@ class Baton extends PluginBase implements Listener{
 			$damager = $event->getDamager();
 			$player = $event->getEntity();
 			$item = $damager->getInventory()->getItemInHand();
-			$a = $damager instanceof Player;
-			$b = $player instanceof Player;
-			$c = $item->getId() === Item::STICK;
-			$d = $item->getCustomName() === "警棒";
-			$e = $damager->isOp() || $this->moderators->exists(strtolower($damager->getName()));
-			if($a && $b && $c && $d && $e){
+			if(
+				$damager instanceof Player && $player instanceof Player &&
+				$item->getId() === Item::STICK && $item->getCustomName() === "警棒" &&
+				($damager->isOp() || $this->moderators->exists($damager->getName(), true))
+			){
 				$pos = $this->config->get("pos");
 				$pos = new Position($pos["x"], $pos["y"] + 0.1, $pos["z"], $this->getServer()->getLevelByName($pos["world"]));
 				$player->teleport($pos);

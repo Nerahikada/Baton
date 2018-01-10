@@ -57,13 +57,13 @@ class Baton extends PluginBase implements Listener{
 
 	public function onHelpCommand(CommandSender $sender, array $args){
 		$sender->sendMessage(
-			"/baton コマンドヘルプ\n".
-			"§2/baton help §fヘルプを表示します\n".
-			"§2/baton add <name> §f<name>が警棒を使えるようにします\n".
-			"§2/baton remove <name> §f<name>が警棒を使えなくなります\n".
-			"§2/baton set §f現在立っている位置が牢屋に設定されます\n".
-			"§2/baton reload §f設定ファイルを再読み込みします\n".
-			"§2/baton give §f警棒を付与します"
+			"§2/baton コマンドヘルプ\n".
+			"§2/baton help  §fヘルプを表示します\n".
+			"§2/baton add <name>  §f<name>が警棒を使えるようにします\n".
+			"§2/baton remove <name>  §f<name>が警棒を使えなくなります\n".
+			"§2/baton set  §f現在立っている位置がtpする位置に設定されます\n".
+			"§2/baton reload  §f設定ファイルを再読み込みします\n".
+			"§2/baton give <name>  §f<name>に警棒を付与します"
 		);
 	}
 
@@ -111,15 +111,32 @@ class Baton extends PluginBase implements Listener{
 	}
 
 	public function onGiveCommand(CommandSender $sender, array $args){
-		if(!$sender instanceof Player){
-			$sender->sendMessage("§cゲーム内で実行してください");
-			return;
-		}
-
 		$item = Item::get(Item::STICK);
 		$item->setCustomName("警棒");
-		$item->addEnchantment(Enchantment::getEnchantment(Enchantment::PROTECTION));
-		$sender->getInventory()->addItem($item);
+
+		$enchantment = Enchantment::getEnchantment(Enchantment::PROTECTION);
+		if(strpos((new \ReflectionClass("pocketmine\item\Item"))->getMethod("addEnchantment")->getParameters()[0]->getClass()->getName(), "EnchantmentInstance")){
+			$enchantment = new \pocketmine\item\enchantment\EnchantmentInstance($enchantment, 1);
+		}
+		$item->addEnchantment($enchantment);
+
+		$name = strtolower(implode(" ", $args));
+		if(empty($name)){
+			if(!$sender instanceof Player){
+				$sender->sendMessage("§cゲーム内で実行してください");
+				return;
+			}
+			$sender->getInventory()->addItem($item);
+			$sender->sendMessage("警棒を付与しました");
+		}else{
+			$target = $this->getServer()->getPlayer($name);
+			if($target === null){
+				$sender->sendMessage("§cプレイヤーが見つかりませんでした");
+				return;
+			}
+			$target->getInventory()->addItem($item);
+			$sender->sendMessage($target->getDisplayName()." に警棒を付与しました");
+		}
 	}
 
 
@@ -130,7 +147,7 @@ class Baton extends PluginBase implements Listener{
 			$item = $damager->getInventory()->getItemInHand();
 			if(
 				$damager instanceof Player && $player instanceof Player &&
-				$item->getId() === Item::STICK && $item->getCustomName() === "警棒" &&
+				$item->getId() === Item::STICK && $item->hasEnchantments() &&
 				($damager->isOp() || $this->moderators->exists($damager->getName(), true))
 			){
 				$pos = $this->config->get("pos");

@@ -1,14 +1,19 @@
-# Baton
-警棒プラグイン  
-[![](http://img.youtube.com/vi/KY3xyOpMHxc/0.jpg)](https://www.youtube.com/watch?v=KY3xyOpMHxc)
+# Baton - 警棒プラグイン
+
+## ダウンロード
+[Download](https://github.com/Nerahikada/Baton/releases/tag/v1.1.0.11)
 
 ## 説明
-op、もしくはモデレーターがエンチャントされた棒でプレイヤーを殴ると、そのプレイヤーを指定した位置へテレポートさせます
+OP、もしくはモデレーターがエンチャントされた棒でプレイヤーを殴ると、殴ったプレイヤーを指定した位置へテレポートさせます
 
 ## コマンド
-/baton help  ヘルプを表示します  
-/baton add \<name\>  モデレーターを追加します  
-/baton remove \<name\>  モデレーターを削除します  
-/baton set  tp位置を立っている座標に設定します  
-/baton reload  設定ファイルをリロードします  
-/baton give \<name\>  エンチャントされた棒を付与します
+__/baton help__: ヘルプを表示します  
+__/baton add \<name\>__: モデレーターを追加します  
+__/baton remove \<name\>__: モデレーターを削除します  
+__/baton set__: TP位置を立っている座標に設定します  
+__/baton reload__: 設定ファイルをリロードします  
+__/baton give \<name\>__: エンチャントされた棒を付与します
+
+## 設定ファイル
+設定ファイル(config.yml)を使って、座標を指定することもできます(上級者向け)  
+**x, y, z**にはそれぞれX, Y, Z座標を、**world**にはテレポートさせるワールドの名前を入力してください

@@ -1,4 +1,6 @@
 # Baton - 警棒プラグイン
+
+## ダウンロード
 [ダウンロード](https://github.com/Nerahikada/Baton/releases/download/v1.1.0.11/Baton_v1.1.0.11.phar)
 
 ## 説明

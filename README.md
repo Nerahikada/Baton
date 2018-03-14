@@ -4,7 +4,8 @@
 [ダウンロード](https://github.com/Nerahikada/Baton/releases/download/v1.1.0.11/Baton_v1.1.0.11.phar)
 
 ## 説明
-OP、もしくはモデレーターがエンチャントされた棒でプレイヤーを殴ると、殴ったプレイヤーを指定した位置へテレポートさせます
+OP、もしくはモデレーターがエンチャントされた棒でプレイヤーを殴ると、殴ったプレイヤーを指定した位置へテレポートさせます  
+[![Youtube](http://img.youtube.com/vi/KY3xyOpMHxc/0.jpg)](http://www.youtube.com/watch?v=KY3xyOpMHxc)
 
 ## コマンド
 **/baton help**: ヘルプを表示します  

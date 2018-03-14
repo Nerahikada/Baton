@@ -17,4 +17,25 @@ OP、もしくはモデレーターがエンチャントされた棒でプレイ
 
 ## 設定ファイル
 設定ファイル(config.yml)を使って、座標を指定することもできます(上級者向け)  
-**x, y, z**にはそれぞれX, Y, Z座標を、**world**にはテレポートさせるワールドの名前を入力してください
+**x, y, z**にはそれぞれX, Y, Z座標を、**world**にはテレポートさせるワールドの名前を入力してください  
+
+
+
+<br><br>
+# Baton - Vandalism prevention plug-in (English)
+(Uses Google Translate)
+
+## Download
+[Download](https://github.com/Nerahikada/Baton/releases/download/v1.1.0.11/Baton_v1.1.0.11.phar)
+
+## Description
+OP or moderators hit the player with enchanted sticks, teleport this player to the specified position.  
+[![Youtube](http://img.youtube.com/vi/KY3xyOpMHxc/0.jpg)](http://www.youtube.com/watch?v=KY3xyOpMHxc)
+
+## Commands
+**/baton help**: Display help.  
+**/baton add \<name\>**: Add moderators.  
+**/baton remove \<name\>**: Remove moderators.  
+**/baton set**: Set current coordinates to TP coordinates.  
+**/baton reload**: Reload the configuration file.  
+**/baton give \<name\>**: Give the player enchanted sticks.

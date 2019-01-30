@@ -1,7 +1,7 @@
 # Baton - 警棒プラグイン
 
 ## ダウンロード
-[ダウンロード](https://github.com/Nerahikada/Baton/releases/download/v1.1.0.12/Baton_v1.1.0.12.phar)
+[ダウンロード](https://github.com/Nerahikada/Baton/releases/download/v1.2.0/Baton_v1.2.0.phar)
 
 ## 説明
 OP、もしくはモデレーターがエンチャントされた棒でプレイヤーを殴ると、殴ったプレイヤーを指定した位置へテレポートさせます  
@@ -26,7 +26,7 @@ OP、もしくはモデレーターがエンチャントされた棒でプレイ
 (Uses Google Translate)
 
 ## Download
-[Download](https://github.com/Nerahikada/Baton/releases/download/v1.1.0.12/Baton_v1.1.0.12.phar)
+[Download](https://github.com/Nerahikada/Baton/releases/download/v1.2.0/Baton_v1.2.0.phar)
 
 ## Description
 OP or moderators hit the player with enchanted sticks, teleport this player to the specified position.  

@@ -46,7 +46,7 @@ class Baton extends PluginBase implements Listener{
 		];
 	}
 
-	public function onCommand(CommandSender $sender, Command $command, string $label, array $args): bool{
+	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool{
 		if(!$sender->isOp()) return true;
 		// 可変関数(コールバック関数)
 		$callable = $this->commandHandler[strtolower(array_shift($args))] ?? $this->commandHandler["help"];
@@ -115,9 +115,7 @@ class Baton extends PluginBase implements Listener{
 		$item->setCustomName("警棒");
 
 		$enchantment = Enchantment::getEnchantment(Enchantment::PROTECTION);
-		if(strpos((new \ReflectionClass("pocketmine\item\Item"))->getMethod("addEnchantment")->getParameters()[0]->getClass()->getName(), "EnchantmentInstance")){
-			$enchantment = new \pocketmine\item\enchantment\EnchantmentInstance($enchantment, 1);
-		}
+		$enchantment = new \pocketmine\item\enchantment\EnchantmentInstance($enchantment, 1);
 		$item->addEnchantment($enchantment);
 
 		$name = strtolower(implode(" ", $args));
@@ -146,9 +144,9 @@ class Baton extends PluginBase implements Listener{
 			$player = $event->getEntity();
 			$item = $damager->getInventory()->getItemInHand();
 			if(
-				$damager instanceof Player && $player instanceof Player &&
-				$item->getId() === Item::STICK && $item->hasEnchantments() &&
-				($damager->isOp() || $this->moderators->exists($damager->getName(), true))
+				$damager instanceof Player && $player instanceof Player
+				 && $item->getId() === Item::STICK && $item->hasEnchantments()
+				 && ($damager->isOp() || $this->moderators->exists($damager->getName(), true))
 			){
 				$pos = $this->config->get("pos");
 				$pos = new Position($pos["x"], $pos["y"] + 0.1, $pos["z"], $this->getServer()->getLevelByName($pos["world"]));
